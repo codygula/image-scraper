@@ -1,6 +1,7 @@
 import re
 import requests
-
+import urllib.request
+import uuid
 
 def get_image_URLs(URL):
     
@@ -19,6 +20,16 @@ def get_image_URLs(URL):
             links.append(image_url)
 
     print(links)
+
     return links
 
-get_image_URLs("https://login.yahoo.com/?.src=ym&lang=en-US&done=https%3A%2F%2Fmail.yahoo.com%2Fd%2Ffolders%2F1%3F.src%3Dfp")
+urlInput = input('ENTER URL: ')
+
+url_list = get_image_URLs(urlInput)
+
+for i in url_list:
+    try:
+        urllib.request.urlretrieve(i, f"DownloadImage{uuid.uuid4()}.png")
+        print("downloading ", i)
+    except:
+        print("Error downloading ", i)
